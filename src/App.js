@@ -89,6 +89,10 @@ class App extends Component {
   }
 
   calculateFaceLocation = (data) => {
+    if (!data || !data.outputs) {
+      return;
+    }
+
     let boxArray = [];
     const predictedRegions = data.outputs[0].data.regions;
 
@@ -108,6 +112,9 @@ class App extends Component {
   }
 
   displayFaceBox = (boxArray) => {
+    if (!boxArray) {
+      return;
+    }
     this.setState({ boxes: boxArray });
   }
 
@@ -119,7 +126,10 @@ class App extends Component {
     this.setState({ imageUrl: this.state.input });
     fetch('http://localhost:3000/imageurl', {
       method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': window.sessionStorage.getItem('token')
+      },
       body: JSON.stringify({
         input: this.state.input
       })
@@ -129,7 +139,10 @@ class App extends Component {
         if (response) {
           fetch('http://localhost:3000/image', {
             method: 'put',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': window.sessionStorage.getItem('token')
+            },
             body: JSON.stringify({
               id: this.state.user.id
             })
