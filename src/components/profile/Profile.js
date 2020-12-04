@@ -68,19 +68,21 @@ class Profile extends React.Component {
             />
             <label className="mt2 fw6" htmlFor="user-age">Age</label>
             <input
-              placeholder='22'
+              placeholder={user.age}
               className="pa2 ba w-100"
               type="text"
               name="user-age"
               id="user-age"
+              onChange={(e) => this.onFormChange(e)}
             />
             <label className="mt2 fw6" htmlFor="user-pet">Pet</label>
             <input
-              placeholder='ninja snail'
+              placeholder={user.pet}
               className="pa2 ba w-100"
               type="text"
               name="user-pet"
               id="user-pet"
+              onChange={(e) => this.onFormChange(e)}
             />
 
             <div className='mt4' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
